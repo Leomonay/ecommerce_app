@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+
 import { startLoadingOrdersByUser } from '../actions/orders';
 import PrivateRoute from "./PrivateRoute";
 import AdminRoutes from './AdminRoutes';
@@ -49,6 +52,7 @@ const AppRouter = () => {
   return (
     <Router>
       <div>
+        <ReactNotification />
         <Switch>
           <PrivateRoute 
             path='/auth' 

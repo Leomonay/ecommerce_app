@@ -21,7 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { get_reviews } from "../../actions/reviewsActions";
-
+import { store } from 'react-notifications-component';
 
 export default function ProductCard({ name, price, color, category, img, id }) {
     let navigate = useHistory();
@@ -39,22 +39,49 @@ export default function ProductCard({ name, price, color, category, img, id }) {
     function addFavorites(){
         if (user.id &&user && user.name !== null ) 
         {            
-            toast.info("Producto agregado a favoritos", {
-                draggable: true,
-                closeOnClick: true,
-                pauseOnHover: false,
-                position: toast.POSITION.BOTTOM_RIGHT,
-            });
+            // toast.info("Producto agregado a favoritos", {
+            //     draggable: true,
+            //     closeOnClick: true,
+            //     pauseOnHover: false,
+            //     position: toast.POSITION.BOTTOM_RIGHT,
+            // });
             var userId = user.id
             
-            dispatch(addToWishlist(id, userId))}
-        else {
-            toast.info("Producto agregado a favoritos", {
-                draggable: true,
-                closeOnClick: true,
-                pauseOnHover: false,
-                position: toast.POSITION.BOTTOM_RIGHT,
+            dispatch(addToWishlist(id, userId))
+            store.addNotification({
+                title: "Aviso!",
+                message: "Producto añadido a favoritos",
+                type: "success",
+                insert: "bottom",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                duration: 3000,
+                onScreen: true
+                }
             });
+        }
+        else {
+            store.addNotification({
+                title: "Aviso!",
+                message: "Producto añadido a favoritos",
+                type: "success",
+                insert: "bottom",
+                container: "bottom-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                duration: 3000,
+                onScreen: true
+                }
+            });
+            // toast.info("Producto agregado a favoritos", {
+            //     draggable: true,
+            //     closeOnClick: true,
+            //     pauseOnHover: false,
+            //     position: toast.POSITION.BOTTOM_RIGHT,
+            // });
             dispatch(addToWishlist(id, -1))
         }
     }
@@ -84,12 +111,25 @@ export default function ProductCard({ name, price, color, category, img, id }) {
     }
 
     const addhandler = async () => {
-        toast.info("Producto agregado al carrito", {
-            draggable: true,
-            closeOnClick: true,
-            pauseOnHover: false,
-            position: toast.POSITION.BOTTOM_RIGHT,
+        store.addNotification({
+            title: "Aviso!",
+            message: "Producto añadido al carrito",
+            type: "success",
+            insert: "bottom",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+            duration: 3000,
+            onScreen: true
+            }
         });
+        // toast.info("Producto agregado al carrito", {
+        //     draggable: true,
+        //     closeOnClick: true,
+        //     pauseOnHover: false,
+        //     position: toast.POSITION.BOTTOM_RIGHT,
+        // });
         var userId = user.id;
         var productId = id;
         var quantity = 1;
@@ -133,13 +173,13 @@ export default function ProductCard({ name, price, color, category, img, id }) {
                     </span>
                 </div>
             </Card>
-        <ToastContainer
+        {/* <ToastContainer
             position="top-right"
             transition={Bounce}
             draggable={false}
             autoClose={4000}
             pauseOnHover={false}
-        />
+        /> */}
         </CardContainer>
         // </>
     );

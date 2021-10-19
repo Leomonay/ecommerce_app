@@ -24,3 +24,8 @@ button {
   background: #75BA93;
   color: #fff;
 }
+
+::selection {
+  color: #fff;
+  background: #75BA93;
+}

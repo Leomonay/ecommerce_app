@@ -45,6 +45,8 @@ import {
 } from "../../actions/orders";
 
 import { ToastContainer, toast, Zoom, Bounce } from "react-toastify";
+import { store } from 'react-notifications-component';
+
 
 export default function Home() {
   const history = useHistory();
@@ -75,9 +77,18 @@ export default function Home() {
   };
 
   const notificationMessage = (mensaje) => {
-    toast.info(mensaje, {
-      draggable: true,
-      position: toast.POSITION.TOP_RIGHT,
+    store.addNotification({
+      title: "Aviso!",
+      message: mensaje,
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+      duration: 3000,
+      onScreen: true
+      }
     });
   };
 
@@ -116,11 +127,11 @@ export default function Home() {
       ordersByUserId.filter((ord) => ord.status === "Open");
     if (search.includes("in_process")) {
       const body = { status: "InProcess" };
-      document.querySelector("#MPStatus").classList.add("active");
+      // document.querySelector("#MPStatus").classList.add("active");
       dispatch(removeAll());
       notificationMessage("Tu compra esta en proceso");
       setTimeout(() => {
-        document.querySelector("#MPStatus").classList.remove("active");
+        // document.querySelector("#MPStatus").classList.remove("active");
         {
           openOrder && dispatch(updateOrderById(openOrder[0].id, body));
         }
@@ -130,7 +141,7 @@ export default function Home() {
       const body = { status: "Complete" };
 
       dispatch(removeAll());
-      notificationMessage("Tu compra fue aprovada");
+      notificationMessage("Tu compra fue aprobada");
       setTimeout(() => {
         {
           openOrder && dispatch(updateOrderById(openOrder[0].id, body));
@@ -176,8 +187,6 @@ export default function Home() {
               Amarillo
             </span>
           </Card>
-        </Row>
-        <Row>
           <Card name="black" id="5" onClick={(e) => goColor(e, "black")}>
             <img alt="Imagen de te" name="black" id="5" src={Negro}></img>
             <span name="black" id="5">
@@ -329,12 +338,12 @@ export default function Home() {
           )}
         </Modal>
       </DeleteModal>
-      <ToastContainer
+      {/* <ToastContainer
         position="top-right"
         transition={Bounce}
         draggable={false}
         autoClose={4000}
-      />
+      /> */}
     </HomeFlex>
   );
 }

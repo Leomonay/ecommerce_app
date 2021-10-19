@@ -20,6 +20,7 @@ import {
 import ReviewForm from "../Review/ReviewForm";
 import { get_reviews, showReviewModalActn } from "../../actions/reviewsActions";
 import axios from "axios";
+import { store } from 'react-notifications-component';
 
 export default function ProductDetail() {
   const [bigImg, setBigImg] = useState("");
@@ -66,9 +67,18 @@ export default function ProductDetail() {
   const prodId = history.location.pathname.slice(16);
 
   const notifyAdd = () => {
-    toast.success("Producto agregado al carrito", {
-      draggable: true,
-      position: toast.POSITION.BOTTOM_RIGHT,
+    store.addNotification({
+      title: "Aviso!",
+      message: 'Producto agregado al carrito',
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+      duration: 3000,
+      onScreen: true
+      }
     });
     var userId = user.id;
     var productId = prodId;
@@ -145,12 +155,12 @@ export default function ProductDetail() {
             <button disabled={disableButton} onClick={handleAddReview}>
               Agregar Revisión
             </button>
-            <ToastContainer
+            {/* <ToastContainer
               position="top-right"
               transition={Bounce}
               draggable={false}
               autoClose={4000}
-            />
+            /> */}
           </Informacion>
         </ContainerFlex>
       </Container>

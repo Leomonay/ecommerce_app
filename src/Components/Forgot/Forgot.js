@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast, Zoom, Slide, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { store } from 'react-notifications-component';
 
 export default function Forgot() {
     const [input, setInput] = useState({ email: "" });
@@ -18,14 +19,18 @@ export default function Forgot() {
     };
 
     const handleSubmit = async (e) => {
-        toast.success("Se ha enviado un email a tu correo", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
+        store.addNotification({
+            title: "Aviso!",
+            message: 'Te enviamos un email con instrucciones',
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+            duration: 3000,
+            onScreen: true
+            }
         });
 
         const response = await axios.post(
@@ -44,7 +49,7 @@ export default function Forgot() {
     return (
         <div>
             <>
-                <ToastContainer
+                {/* <ToastContainer
                     position="top-right"
                     autoClose={5000}
                     hideProgressBar={false}
@@ -54,7 +59,7 @@ export default function Forgot() {
                     pauseOnFocusLoss
                     draggable
                     pauseOnHover
-                />
+                /> */}
                 <div>
                     <h1>Olvidaste tu contraseña</h1>
                     <div>

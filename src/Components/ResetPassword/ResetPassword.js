@@ -5,6 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { forceResetPassword } from "../../actions/users";
 import { useHistory } from "react-router";
+import { store } from 'react-notifications-component';
+import { Card, Container } from "./ResetPassword.styles";
 
 export default function ResetPassword({ token, id }) {
     const dispatch = useDispatch();
@@ -44,14 +46,18 @@ export default function ResetPassword({ token, id }) {
                     setError("Token invalido o expirado");
                 } else {
                     dispatch(forceResetPassword(body));
-                    toast.success("Se ha enviado un email a tu correo", {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
+                    store.addNotification({
+                        title: "Aviso!",
+                        message: "Tu contraseña fue cambiada",
+                        type: "success",
+                        insert: "bottom",
+                        container: "bottom-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                        duration: 3000,
+                        onScreen: true
+                        }
                     });
                     history.replace("/auth/login");
                 }
@@ -59,49 +65,45 @@ export default function ResetPassword({ token, id }) {
     };
 
     return (
-        <div>
-            <>
-                {/* {console.log(token)} */}
-                <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
+        <Container>
+            {/* {console.log(token)} */}
+            {/* <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            /> */}
+            <Card>
+                <h3>Cambiar contraseña</h3>
+                <label>Nueva Contraseña</label>
+                <input
+                    name="password"
+                    type="password"
+                    placeholder=""
+                    onChange={handleChange}
                 />
-                <div>
-                    <h1>Cambiar contraseña</h1>
-                    <div>
-                        <input
-                            name="password"
-                            type="password"
-                            placeholder="Contraseña"
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            onChange={handleChange}
-                            name="password2"
-                            type="password"
-                            placeholder="Repite contraseña"
-                        />
-                    </div>
-                    {!error && input.password ? (
-                        <input
-                            type="submit"
-                            onClick={handleSubmit}
-                            value="Cambiar"
-                        />
-                    ) : (
-                        <p>{error}</p>
-                    )}
-                </div>
-            </>
-        </div>
+                <label>Repita su contraseña</label>
+                <input
+                    onChange={handleChange}
+                    name="password2"
+                    type="password"
+                    placeholder=""
+                />
+                {!error && input.password ? (
+                    <input
+                        type="submit"
+                        onClick={handleSubmit}
+                        value="Cambiar"
+                    />
+                ) : (
+                    <p>{error}</p>
+                )}
+            </Card>
+        </Container>
     );
 }

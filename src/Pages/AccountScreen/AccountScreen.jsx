@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { startLoadingOrdersByUser } from "../../actions/orders";
+import { clearUserFeaturedProductsActn } from "../../actions/products";
 import { removeAll } from "../../actions/shoppingActions";
 import { logout, setUser, setOption } from "../../actions/users";
 import { removeAllWish } from "../../actions/wishlistActions";
@@ -10,7 +11,6 @@ import { Container } from "../../Components/ProductDetail/ProductDetail.styled";
 import { ProductsContainer } from "../Admin/OrderByIdScreen/OrderByIdScreen.styles";
 import { TopContainer } from "../Admin/ProductsManagement/ProductsManagement.styles";
 import { OrdersContainer, Title, DateDiv } from "./AccountScreen.styles";
-import { clearUserFeaturedProductsActn } from "../../actions/products";
 
 const dateOptions = {
     month: "long",
@@ -18,6 +18,7 @@ const dateOptions = {
     year: "numeric",
     timeZone: "UTC",
 };
+
 const AccountScreen = () => {
     const [checked, setChecked] = useState(true);
     const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const AccountScreen = () => {
 
     const handleClick = () => {
         setChecked(!checked);
-        dispatch({ type: setOption, payload: checked });
+        dispatch(setOption(checked));
     };
 
     if (!user.id) return <Redirect to="/" />;

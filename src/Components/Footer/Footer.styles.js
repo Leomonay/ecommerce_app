@@ -17,6 +17,7 @@ export const FooterMenu = styled.div`
         grid-template-areas:
             "list list"
             "social security";
+        width: 90%;
     }
     @media only screen and (max-width: 600px) {
         grid-template-areas:
@@ -46,8 +47,11 @@ export const Social = styled.div`
             object-fit: contain;
         }
     }
-    @media only screen and (max-width: 600px) {
+    @media (max-width: 600px) {
         padding: 0;
+        width: auto;
+        flex-direction: row;
+        justify-content: space-between;
     }
 `;
 export const SocialIcons = styled.div`
@@ -61,6 +65,15 @@ export const SocialIcons = styled.div`
         height: 100%;
         width: 40px;
         margin-right: 10px;
+    }
+    div{
+        display: flex;
+    }
+
+    @media only screen and (max-width: 600px) {
+        div{
+            flex-direction: row;
+        }
     }
 `;
 
@@ -79,7 +92,6 @@ export const FooterList = styled.div`
             color: #666;
         }
         span {
-            margin-bottom: 20px;
             font-weight: 900;
             color: #75ba93;
             text-transform: uppercase;
@@ -173,6 +185,7 @@ export const FooterSecurity = styled.div`
     }
     @media only screen and (max-width: 600px) {
         padding: 0;
+        margin-top: 30px;
     }
 `;
 

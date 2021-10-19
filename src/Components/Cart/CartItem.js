@@ -24,10 +24,10 @@ export default function CartItem({ name, image, stock, price, quantity, id }) {
         if(user.id){
             dispatch(removeItemDB(user.id,id))
         }
-        toast.error("Producto removido del carrito", {
-            draggable: true,
-            position: toast.POSITION.BOTTOM_RIGHT,
-        });
+        // toast.error("Producto removido del carrito", {
+        //     draggable: true,
+        //     position: toast.POSITION.BOTTOM_RIGHT,
+        // });
     };
     const outOfStock=()=>{
         if (input==stock){
@@ -56,12 +56,12 @@ export default function CartItem({ name, image, stock, price, quantity, id }) {
     };
     return (
         <SingleItem>
-            <ToastContainer
+            {/* <ToastContainer
                 position="top-right"
                 transition={Bounce}
                 draggable={false}
                 autoClose={4000}
-            />
+            /> */}
             <Informacion>
                 <Imagen>
                     <img src={image} />  

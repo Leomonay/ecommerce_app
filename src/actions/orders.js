@@ -6,6 +6,8 @@ import {
   startLoading,
 } from "./loading";
 
+import { store } from 'react-notifications-component';
+
 export const startLoadingOrders = (status) => {
   return async (dispatch) => {
     dispatch(startLoading());
@@ -68,22 +70,32 @@ export const deleteOrderById = (id) => {
 };
 
 export const updateOrderById = (id, body) => {
-  return async (dispatch) => {
-    try {
-      const response = await fetch(
-        `https://leomonay-tequiero.herokuapp.com//orders/update/${id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
+    return async(dispatch) => {
+        try {
+            const response = await fetch(`https://leomonay-tequiero.herokuapp.com//orders/update/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
+            store.addNotification({
+                title: "Aviso!",
+                message: "Cambio de estado de orden exitoso",
+                type: "success",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                duration: 3000,
+                onScreen: true
+                }
+            });
+        } catch (error) {
+            alert('Producto no actualizado');
+            console.log(error.message);
         }
-      );
-    } catch (error) {
-      alert("Producto no actualizado");
-      console.log(error.message);
     }
-  };
-};
+}
 
 // Traigo el historial de ordenes de un usuario
 export const startLoadingOrdersByUser = (id) => {

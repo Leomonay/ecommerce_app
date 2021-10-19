@@ -7,6 +7,9 @@ import {
 } from "./loading";
 import { imgUpload } from "../helpers/imgUpload";
 import { showReviewModal } from "./showReviewModal";
+
+import { store } from 'react-notifications-component';
+
 const axios = require("axios");
 
 export const startLoadingProducts = () => {
@@ -115,22 +118,31 @@ export const deleteProductById = (id) => {
 };
 
 export const updateProduct = (data) => {
-  return async (dispatch) => {
-    try {
-      const response = await fetch(
-        "https://leomonay-tequiero.herokuapp.com//products/modifyProduct",
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        }
-      );
-      dispatch({ type: types.prodUpdate });
-      alert("Producto actualizado correctamente");
-      dispatch({ type: types.prodImgClear });
-    } catch (error) {
-      alert("Producto no actualizado");
-      console.log(error.message);
+  return async(dispatch) => {
+      try {
+          const response = await fetch('https://leomonay-tequiero.herokuapp.com//products/modifyProduct', {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data)
+          });
+          dispatch({ type: types.prodUpdate });
+          store.addNotification({
+              title: "Aviso!",
+              message: "Producto actualizado correctamente",
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+              duration: 3000,
+              onScreen: true
+              }
+          });
+          dispatch({ type: types.prodImgClear });
+      } catch (error) {
+          alert('Producto no actualizado');
+          console.log(error.message);
     }
   };
 };

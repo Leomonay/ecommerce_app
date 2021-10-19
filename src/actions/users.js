@@ -1,6 +1,8 @@
 import { types } from "../types/types";
 import { finishLoading, startLoading } from "./loading";
 
+import { store } from 'react-notifications-component';
+
 export function showUsers() {
     return async function (dispatch) {
         dispatch(startLoading());
@@ -82,16 +84,26 @@ export const deleteUserById = (id) => {
 export const adminToUser = (body) => {
     return async (dispatch) => {
         try {
-            const response = await fetch(
-                `https://leomonay-tequiero.herokuapp.com//users/adminToUser`,
-                {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(body),
+            const response = await fetch(`https://leomonay-tequiero.herokuapp.com//users/adminToUser`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(body)
+            });
+            store.addNotification({
+                title: "Aviso!",
+                message: "Cambio de rol de usuario exitoso",
+                type: "success",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                duration: 3000,
+                onScreen: true
                 }
-            );
-        } catch (error) {
-            alert("Rol de usuario no actualizado");
+            });
+          } catch (error) {
+            alert('Rol de usuario no actualizado');
             console.log(error.message);
         }
     };
@@ -99,16 +111,26 @@ export const adminToUser = (body) => {
 export const userPromote = (body) => {
     return async (dispatch) => {
         try {
-            const response = await fetch(
-                `https://leomonay-tequiero.herokuapp.com//users/userPromote`,
-                {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(body),
+            const response = await fetch(`https://leomonay-tequiero.herokuapp.com//users/userPromote`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(body)
+            });
+            store.addNotification({
+                title: "Aviso!",
+                message: "Cambio de rol de usuario exitoso",
+                type: "success",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                duration: 3000,
+                onScreen: true
                 }
-            );
-        } catch (error) {
-            alert("Rol de usuario no actualizado");
+            });
+          } catch (error) {
+            alert('Rol de usuario no actualizado');
             console.log(error.message);
         }
     };
@@ -136,16 +158,25 @@ export const getCountries = () => {
 export const forceResetPassword = (body) => {
     return async () => {
         try {
-            const response = await fetch(
-                `https://leomonay-tequiero.herokuapp.com//users/modifyUser`,
-                {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(body),
-                }
-            );
-        } catch (error) {
-            alert("Reset password");
+            const response = await fetch(`https://leomonay-tequiero.herokuapp.com//users/modifyUser`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(body)
+            });
+            store.addNotification({
+              title: "Aviso!",
+              message: "Se reseteo la contraseña del usuario exitosamente",
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+              duration: 3000,
+              onScreen: true
+              }
+            });
+          } catch (error) {
             console.log(error.message);
         }
     };

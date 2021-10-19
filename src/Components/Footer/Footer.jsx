@@ -74,7 +74,7 @@ const Footer = () => {
           <FooterSecurity>
             <h3>Compra Segura</h3>
             <p>Tu pago en nuestro sitio es 100% seguro</p>
-            <p>Tu información será enviada directamente a nuestra base de datos mediante una conexión insegura no encriptada con SSL de 256-bits</p>
+            <p>Tu información será enviada directamente a nuestra base de datos mediante una conexión segura encriptada con SSL de 256-bits</p>
             <img src="https://d15l979h6tv26r.cloudfront.net/imagenes/cyber-logo-2020.png" alt="security" />
           </FooterSecurity>
         </FooterMenu>

@@ -77,14 +77,14 @@ const UsersManagement = () => {
       campo: 'resetPasswordForce',
       update: true
     }
-    const bodyPass = {
-      id: idRolUser,
-      campo: 'password',
-      update: 'password'
-    }
+    // const bodyPass = {
+    //   id: idRolUser,
+    //   campo: 'password',
+    //   update: 'password'
+    // }
     try {
       await dispatch(forceResetPassword(body));
-      await dispatch(forceResetPassword(bodyPass));
+      // await dispatch(forceResetPassword(bodyPass));
       document.querySelector('#passwordModal').classList.remove('active');
     } catch (error) {
       console.log(error);

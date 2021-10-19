@@ -43,6 +43,8 @@ export const CategoryFilterContainer = styled.div `
             color: ${(props) => props.theme.styles.colors.fauxNyanza};
         }
     }
+
+    
 `;
 
 export const CategoryType = styled.div `
