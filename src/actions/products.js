@@ -16,7 +16,7 @@ export const startLoadingProducts = () => {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
-      const response = await fetch(`https://leomonay-tequiero.herokuapp.com//products`);
+      const response = await fetch(`https://leomonay-tequiero.herokuapp.com/products`);
       const jsonData = await response.json();
       // console.log('products(11) jsondata: ', jsonData)
       dispatch(setProducts(jsonData));
@@ -40,7 +40,7 @@ export function get_detail(id) {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
-      const res = await fetch(`https://leomonay-tequiero.herokuapp.com//products/${id}`);
+      const res = await fetch(`https://leomonay-tequiero.herokuapp.com/products/${id}`);
       const jsonData = await res.json();
 
       dispatch(setProduct(jsonData[0]));
@@ -62,7 +62,7 @@ export const setProduct = (product) => {
 export function searchProduct(keyword) {
   return async function (dispatch) {
     return await fetch(
-      `https://leomonay-tequiero.herokuapp.com//products/search/?keyword=${keyword}`,
+      `https://leomonay-tequiero.herokuapp.com/products/search/?keyword=${keyword}`,
       { credentials: "include" }
     )
       .then((response) => response.json())
@@ -87,7 +87,7 @@ export function loadFilteredProducts(filterOptions) {
 
         return (
             axios
-            .get(`https://leomonay-tequiero.herokuapp.com//products/categories?&data=${JSON.stringify(filterOptions)}`)
+            .get(`https://leomonay-tequiero.herokuapp.com/products/categories?&data=${JSON.stringify(filterOptions)}`)
             .then((res) => {
                 // console.log("llega desde los filtros", res.data)
                 dispatch(setProducts(res.data));
@@ -106,7 +106,7 @@ export const deleteProductById = (id) => {
   return async () => {
     try {
       const res = await fetch(
-        `https://leomonay-tequiero.herokuapp.com//products/deleteProduct/${id}`,
+        `https://leomonay-tequiero.herokuapp.com/products/deleteProduct/${id}`,
         {
           method: "DELETE",
         }
@@ -120,7 +120,7 @@ export const deleteProductById = (id) => {
 export const updateProduct = (data) => {
   return async(dispatch) => {
       try {
-          const response = await fetch('https://leomonay-tequiero.herokuapp.com//products/modifyProduct', {
+          const response = await fetch('https://leomonay-tequiero.herokuapp.com/products/modifyProduct', {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(data)
@@ -192,7 +192,7 @@ export function loadUserFeaturedProducts(userId) {
     return function(dispatch) {
         // console.log('loadUserFeaturedProducts:: voy a axios.get...')
         return (
-            axios.get(`https://leomonay-tequiero.herokuapp.com//orders/getUserCompleteOrdersRelatedProducts/${userId}`)
+            axios.get(`https://leomonay-tequiero.herokuapp.com/orders/getUserCompleteOrdersRelatedProducts/${userId}`)
             .then((res) => {
                 // console.log(`loadUserFeaturedProducts:: voy a setUserFeaturedProductsActn, data: ${res.data}`)
                 dispatch(setUserFeaturedProductsActn(res.data));

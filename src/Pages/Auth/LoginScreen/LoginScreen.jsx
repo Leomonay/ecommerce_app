@@ -88,7 +88,7 @@ export default function LoginScreen() {
         password: input.password,
       },
       withCredentials: true,
-      url: "https://leomonay-tequiero.herokuapp.com//auth/login",
+      url: "https://leomonay-tequiero.herokuapp.com/auth/login",
     }).then((res) => {
       dispatch(fullCart(res.data.id));
       dispatch(loadUserFeaturedProducts(res.data.id));
@@ -111,7 +111,7 @@ export default function LoginScreen() {
         "Content-Type": "application/json",
       },
       withCredentials: true,
-      url: "https://leomonay-tequiero.herokuapp.com//auth/login",
+      url: "https://leomonay-tequiero.herokuapp.com/auth/login",
     }).then((res) => {
       console.log("soy res", res);
       dispatch(fullCart(res.data.id));

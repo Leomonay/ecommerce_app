@@ -7,7 +7,7 @@ export function showUsers() {
     return async function (dispatch) {
         dispatch(startLoading());
         try {
-            const response = await fetch("https://leomonay-tequiero.herokuapp.com//users/allUser");
+            const response = await fetch("https://leomonay-tequiero.herokuapp.com/users/allUser");
             const jsonData = await response.json();
             dispatch(setUsers(jsonData));
             dispatch(finishLoading());
@@ -57,7 +57,7 @@ export const setUsers = (users) => {
 export const logout = () => {
     return async function (dispatch) {
         try {
-            const response = await fetch("https://leomonay-tequiero.herokuapp.com//auth/logout");
+            const response = await fetch("https://leomonay-tequiero.herokuapp.com/auth/logout");
             console.log("Estoy en el logout");
             dispatch(logOutUser());
         } catch (error) {
@@ -70,7 +70,7 @@ export const deleteUserById = (id) => {
     return async () => {
         try {
             const resp = await fetch(
-                `https://leomonay-tequiero.herokuapp.com//users/deleteUser?id=${id}`,
+                `https://leomonay-tequiero.herokuapp.com/users/deleteUser?id=${id}`,
                 {
                     method: "DELETE",
                 }
@@ -84,7 +84,7 @@ export const deleteUserById = (id) => {
 export const adminToUser = (body) => {
     return async (dispatch) => {
         try {
-            const response = await fetch(`https://leomonay-tequiero.herokuapp.com//users/adminToUser`, {
+            const response = await fetch(`https://leomonay-tequiero.herokuapp.com/users/adminToUser`, {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(body)
@@ -111,7 +111,7 @@ export const adminToUser = (body) => {
 export const userPromote = (body) => {
     return async (dispatch) => {
         try {
-            const response = await fetch(`https://leomonay-tequiero.herokuapp.com//users/userPromote`, {
+            const response = await fetch(`https://leomonay-tequiero.herokuapp.com/users/userPromote`, {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(body)
@@ -158,7 +158,7 @@ export const getCountries = () => {
 export const forceResetPassword = (body) => {
     return async () => {
         try {
-            const response = await fetch(`https://leomonay-tequiero.herokuapp.com//users/modifyUser`, {
+            const response = await fetch(`https://leomonay-tequiero.herokuapp.com/users/modifyUser`, {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(body)

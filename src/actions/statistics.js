@@ -5,7 +5,7 @@ import "moment/locale/es";
 //Cantidad de productos agregado al carrito
 export function totalCarrito() {
     return async function(dispatch) {
-        return await fetch(`https://leomonay-tequiero.herokuapp.com//statistics/totalCart`)
+        return await fetch(`https://leomonay-tequiero.herokuapp.com/statistics/totalCart`)
             .then(response => response.json())
             .then(sales => {
                 
@@ -20,7 +20,7 @@ export function totalCarrito() {
 //Cantidad de productos vendidos
 export function totalVendidos(){
     return async function(dispatch) {
-        return await fetch(`https://leomonay-tequiero.herokuapp.com//statistics/totalSold`)
+        return await fetch(`https://leomonay-tequiero.herokuapp.com/statistics/totalSold`)
             .then(response => response.json())
             .then(sales => {
                 const productos = sales.map((p)=>p.products)
@@ -42,7 +42,7 @@ export function totalVendidos(){
 //Cantidad de ventas en pesos
 export function totalVentas(){
     return async function(dispatch) {
-        return await fetch(`https://leomonay-tequiero.herokuapp.com//statistics/totalSold`)
+        return await fetch(`https://leomonay-tequiero.herokuapp.com/statistics/totalSold`)
             .then(response => response.json())
             .then(sales => {
                 const productos = sales.map((p)=>p.products)
@@ -62,7 +62,7 @@ export function totalVentas(){
 //Total de ventas en pesos por país
 export function totalPorPais(){
     return async function(dispatch) {
-        return await fetch(`https://leomonay-tequiero.herokuapp.com//statistics/totalSold`)
+        return await fetch(`https://leomonay-tequiero.herokuapp.com/statistics/totalSold`)
             .then(response => response.json())
             .then(sales => {
                 //ARGENTINA
@@ -151,7 +151,7 @@ export function totalPorPais(){
 
 export function totalVendidosPorColor(){
     return async function(dispatch) {
-        return await fetch(`https://leomonay-tequiero.herokuapp.com//statistics/totalSold`)
+        return await fetch(`https://leomonay-tequiero.herokuapp.com/statistics/totalSold`)
             .then(response => response.json())
             .then(sales => {
                
@@ -246,7 +246,7 @@ export function productosMasVendidos(arr){
 
 export function SalesByMonth(){
     return async function(dispatch) {
-        return await fetch(`https://leomonay-tequiero.herokuapp.com//statistics/totalSold`)
+        return await fetch(`https://leomonay-tequiero.herokuapp.com/statistics/totalSold`)
         .then(response => response.json())
         .then(sales => {
         

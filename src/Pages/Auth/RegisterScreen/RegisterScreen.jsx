@@ -125,7 +125,7 @@ const RegisterScreen = () => {
               monthDate: currentMonth
           }, 
           withCredentials:true,
-          url: "https://leomonay-tequiero.herokuapp.com//users/addUser",
+          url: "https://leomonay-tequiero.herokuapp.com/users/addUser",
         }).then((res)=> {
             
             if (res.data.msg =="Usuario creado correctamente"){
@@ -163,7 +163,7 @@ const RegisterScreen = () => {
 
           if (e.target.name === "username" && e.target.value.length>0){
               const username= e.target.value
-              fetch(`https://leomonay-tequiero.herokuapp.com//users/find?user=${username}`)
+              fetch(`https://leomonay-tequiero.herokuapp.com/users/find?user=${username}`)
               .then(response=>setAvailability(response.status))
               
           }

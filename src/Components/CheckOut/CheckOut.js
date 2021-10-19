@@ -11,7 +11,7 @@ export default function CheckOut({ total, totalprice }) {
 
   const handleSave = () => {
     axios
-      .post("https://leomonay-tequiero.herokuapp.com//orders/addToOrder", {
+      .post("https://leomonay-tequiero.herokuapp.com/orders/addToOrder", {
         userId: user.id,
         products: cart,
       })
@@ -27,7 +27,7 @@ export default function CheckOut({ total, totalprice }) {
 
   const linkMp = () => {
     axios
-      .post("https://leomonay-tequiero.herokuapp.com//mercadopago/create_preference", {
+      .post("https://leomonay-tequiero.herokuapp.com/mercadopago/create_preference", {
         totalprice: totalprice,
       })
       .then((response) => {

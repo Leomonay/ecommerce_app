@@ -5,7 +5,7 @@ export function showCategories() {
     return async function(dispatch) {
         dispatch(startLoading());
         try {
-            const response = await fetch("https://leomonay-tequiero.herokuapp.com//categories/allCategories");
+            const response = await fetch("https://leomonay-tequiero.herokuapp.com/categories/allCategories");
             const jsonData = await response.json();
             // console.log(jsonData);
             dispatch(setCategories(jsonData));
@@ -27,7 +27,7 @@ export const setCategories = (categories) => {
 export const deleteCategoryByName = (name) => {
     return async() => {
         try {
-            const res = await fetch(`https://leomonay-tequiero.herokuapp.com//categories/deletedCategory/${name}`, {
+            const res = await fetch(`https://leomonay-tequiero.herokuapp.com/categories/deletedCategory/${name}`, {
                 method: "DELETE",
             });
         } catch (err) {
@@ -40,7 +40,7 @@ export const newCategory = (category) => {
     return async(dispatch) => {
         try {
             
-            const rawResponse = await fetch('https://leomonay-tequiero.herokuapp.com//categories/addCategory', {
+            const rawResponse = await fetch('https://leomonay-tequiero.herokuapp.com/categories/addCategory', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -63,7 +63,7 @@ export const modifyCategory = (endPointArgs) => {
     return async(dispatch) => {
         try {
             // console.log('modifyCategory(63):: endPointArgs: ', endPointArgs)
-            const rawResponse = await fetch('https://leomonay-tequiero.herokuapp.com//categories/modifyCategory', {
+            const rawResponse = await fetch('https://leomonay-tequiero.herokuapp.com/categories/modifyCategory', {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',

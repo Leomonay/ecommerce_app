@@ -40,7 +40,7 @@ export default function ProductDetail() {
 
   async function checkReviews() {
     axios
-      .get(`https://leomonay-tequiero.herokuapp.com//reviews/checkRevs/${user.id}/${product.id}`)
+      .get(`https://leomonay-tequiero.herokuapp.com/reviews/checkRevs/${user.id}/${product.id}`)
       .then((res) => {
         setDisableButton(res.data);
       })

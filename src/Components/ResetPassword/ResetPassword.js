@@ -37,7 +37,7 @@ export default function ResetPassword({ token, id }) {
             update: false
           }
         const handlePass = await axios
-            .put(`https://leomonay-tequiero.herokuapp.com//users/passwordReset/${token}`, {
+            .put(`https://leomonay-tequiero.herokuapp.com/users/passwordReset/${token}`, {
                 password: input.password,
                 password2: input.password2,
             })

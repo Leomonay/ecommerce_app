@@ -23,7 +23,7 @@ const NewsLetter = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("https://leomonay-tequiero.herokuapp.com//users/signup", {
+    await axios.post("https://leomonay-tequiero.herokuapp.com/users/signup", {
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,

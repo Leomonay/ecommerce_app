@@ -6,7 +6,7 @@ export function showIngredients() {
         // console.log('showIngredients (6):: loading ingredients')
         dispatch(startLoading());
         try {
-            const response = await fetch("https://leomonay-tequiero.herokuapp.com//ingredients/allIngredients");
+            const response = await fetch("https://leomonay-tequiero.herokuapp.com/ingredients/allIngredients");
             const jsonData = await response.json();
             // console.log('showIngredients (11):: jsonData: ', jsonData)
             dispatch(setIngredients(jsonData));
@@ -28,7 +28,7 @@ export const setIngredients = (ingredients) => {
 export const deleteIngredientByName = (name) => {
     return async() => {
         try {
-            const res = await fetch(`https://leomonay-tequiero.herokuapp.com//ingredients/deletedIngredient/${name}`, {
+            const res = await fetch(`https://leomonay-tequiero.herokuapp.com/ingredients/deletedIngredient/${name}`, {
                 method: "DELETE",
             });
         } catch (err) {
@@ -41,7 +41,7 @@ export const newIngredient = (ingredient) => {
     return async(dispatch) => {
         try {
             // console.log('newIngredient(42):: ingredient: ', ingredient)
-            const rawResponse = await fetch('https://leomonay-tequiero.herokuapp.com//ingredients/addIngredient', {
+            const rawResponse = await fetch('https://leomonay-tequiero.herokuapp.com/ingredients/addIngredient', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -64,7 +64,7 @@ export const modifyIngredient = (endPointArgs) => {
     return async(dispatch) => {
         try {
             // console.log('modifyIngredient(65):: endPointArgs: ', endPointArgs)
-            const rawResponse = await fetch('https://leomonay-tequiero.herokuapp.com//ingredients/modifyIngredient', {
+            const rawResponse = await fetch('https://leomonay-tequiero.herokuapp.com/ingredients/modifyIngredient', {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',

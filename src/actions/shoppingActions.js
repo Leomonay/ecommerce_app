@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const cartFromBack = (userId) => {
     return function (dispatch){
-        axios.get(`https://leomonay-tequiero.herokuapp.com//orders?userId=${userId}&status=Open`)
+        axios.get(`https://leomonay-tequiero.herokuapp.com/orders?userId=${userId}&status=Open`)
         .then((res)=>{
             const products = []
             res.data[0]&& res.data[0].products&& res.data[0].products.map(e=>{
@@ -35,7 +35,7 @@ export const addToCart = (userId, productId, quantity) => {
     return function (dispatch) {
         if (userId && userId!=null){
             console.log("posteo una orden")
-        return axios.post('https://leomonay-tequiero.herokuapp.com//orders/addToOrder', {
+        return axios.post('https://leomonay-tequiero.herokuapp.com/orders/addToOrder', {
                 userId: userId,
                 products: [{id: Number(productId),
                     quantity: Number(quantity)
@@ -43,7 +43,7 @@ export const addToCart = (userId, productId, quantity) => {
         })
             .then((res) => {
             // console.log(res.data.msg);
-            // axios.get(`https://leomonay-tequiero.herokuapp.com//orders/order/${res.data.orderId}`)
+            // axios.get(`https://leomonay-tequiero.herokuapp.com/orders/order/${res.data.orderId}`)
             //     .then((res2)=>{
             dispatch(addToProductReducer(productId, quantity))
                 // })
@@ -59,7 +59,7 @@ export const addToCart = (userId, productId, quantity) => {
 
 export const removeItemDB = (userId, productId) =>{
     return function (dispatch) {
-        return axios.post('https://leomonay-tequiero.herokuapp.com//orders/deleteItem', {
+        return axios.post('https://leomonay-tequiero.herokuapp.com/orders/deleteItem', {
             userId: userId,
             productId: productId
         })
@@ -120,7 +120,7 @@ export const loadCurrentItem = (item) => {
 
 export const fullCart= (userId)=>{
     return function (dispatch) {
-        return axios.get(`https://leomonay-tequiero.herokuapp.com//orders/${userId}`)
+        return axios.get(`https://leomonay-tequiero.herokuapp.com/orders/${userId}`)
         .then((res)=>{
             if (res.data[0]){
             console.log("rdo", res.data[0].products)

@@ -13,7 +13,7 @@ export const startLoadingOrders = (status) => {
     dispatch(startLoading());
     try {
       const response = await fetch(
-        `https://leomonay-tequiero.herokuapp.com//orders?status=${status}`
+        `https://leomonay-tequiero.herokuapp.com/orders?status=${status}`
       );
       const jsonData = await response.json();
       // console.log('products(11) jsondata: ', jsonData)
@@ -37,7 +37,7 @@ export const startLoadingOrderById = (id) => {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
-      const response = await fetch(`https://leomonay-tequiero.herokuapp.com//orders/order/${id}`);
+      const response = await fetch(`https://leomonay-tequiero.herokuapp.com/orders/order/${id}`);
       const jsonData = await response.json();
       // console.log('products(11) jsondata: ', jsonData)
       dispatch(setOrderById(jsonData));
@@ -60,7 +60,7 @@ export const deleteOrderById = (id) => {
   return async (dispatch) => {
     dispatch(startLoader());
     try {
-      // await fetch(`https://leomonay-tequiero.herokuapp.com//orders/order/${id}`);
+      // await fetch(`https://leomonay-tequiero.herokuapp.com/orders/order/${id}`);
       dispatch(finishLoader());
     } catch (error) {
       console.log(error);
@@ -72,7 +72,7 @@ export const deleteOrderById = (id) => {
 export const updateOrderById = (id, body) => {
     return async(dispatch) => {
         try {
-            const response = await fetch(`https://leomonay-tequiero.herokuapp.com//orders/update/${id}`, {
+            const response = await fetch(`https://leomonay-tequiero.herokuapp.com/orders/update/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
@@ -103,7 +103,7 @@ export const startLoadingOrdersByUser = (id) => {
     dispatch(startLoading());
     try {
       const response = await fetch(
-        `https://leomonay-tequiero.herokuapp.com//orders/getUserOrders/${id}`
+        `https://leomonay-tequiero.herokuapp.com/orders/getUserOrders/${id}`
       );
       const jsonData = await response.json();
       dispatch(setUserOrders(jsonData));

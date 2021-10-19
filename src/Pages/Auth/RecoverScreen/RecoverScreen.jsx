@@ -45,7 +45,7 @@ export default function RecoverScreen() {
         });
 
         const response = await axios.post(
-            "https://leomonay-tequiero.herokuapp.com//users/forgot",
+            "https://leomonay-tequiero.herokuapp.com/users/forgot",
             {
                 email: input.email,
             }

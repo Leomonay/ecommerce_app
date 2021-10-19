@@ -79,7 +79,7 @@ export default function Login() {
                 password: input.password,
             },
             withCredentials: true,
-            url: "https://leomonay-tequiero.herokuapp.com//auth/login",
+            url: "https://leomonay-tequiero.herokuapp.com/auth/login",
         }).then((res) => {
             
             setData(res)});

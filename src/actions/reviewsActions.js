@@ -8,7 +8,7 @@ export function addReview(data) {
         // const name = data.name
         const id = data.prodId;
         return axios
-            .post(`https://leomonay-tequiero.herokuapp.com//reviews/addReview/${data.prodId}`, data)
+            .post(`https://leomonay-tequiero.herokuapp.com/reviews/addReview/${data.prodId}`, data)
             .then((res) => {
                 // dispatch(reviewUser(name))
                 dispatch(get_reviews(data.prodId))
@@ -24,7 +24,7 @@ export function get_reviews(productId) {
     return async(dispatch) => {
 
         try {
-            const res = await fetch(`https://leomonay-tequiero.herokuapp.com//reviews/getreview/${productId}`);
+            const res = await fetch(`https://leomonay-tequiero.herokuapp.com/reviews/getreview/${productId}`);
             const jsonData = await res.json();
 
             console.log("ESTA RESPUESTA A GET_REVIEWS", jsonData)
@@ -41,7 +41,7 @@ export function updateReview(fullReview) {
     console.log('updateReview:: fullReview: ', fullReview)
     return function(dispatch) {
         return axios
-            .put(`https://leomonay-tequiero.herokuapp.com//reviews/updateReview/`, fullReview)
+            .put(`https://leomonay-tequiero.herokuapp.com/reviews/updateReview/`, fullReview)
             .then((res) => {
                 dispatch(get_reviews(fullReview.prodId))
             })

@@ -10,7 +10,7 @@ export default function TwoFactorAuth() {
     useEffect(() => {
         const getSecret = async () => {
             const response = await axios.get(
-                "https://leomonay-tequiero.herokuapp.com//users/twoFactorAuth"
+                "https://leomonay-tequiero.herokuapp.com/users/twoFactorAuth"
             );
             setQrCode(response.data.imgURL);
             setSecretUrl(response.data.secret.base32);
@@ -24,7 +24,7 @@ export default function TwoFactorAuth() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("https://leomonay-tequiero.herokuapp.com//users/verify", {
+        await axios.post("https://leomonay-tequiero.herokuapp.com/users/verify", {
             token: token,
             secretURL: secretUrl,
         });

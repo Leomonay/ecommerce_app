@@ -16,7 +16,7 @@ export const addToWishlist = (itemId, userId) => {
                 userId: userId
             }
             return axios
-              .post(`https://leomonay-tequiero.herokuapp.com//wishlist/addWish`, wish)
+              .post(`https://leomonay-tequiero.herokuapp.com/wishlist/addWish`, wish)
               .then((res) => {
                   dispatch(addWish(itemId, userId))
                         
@@ -55,7 +55,7 @@ export const getAllWishes = (userId)=>{
     var user=userId
     return async(dispatch)=> {
         return axios
-           .get(`https://leomonay-tequiero.herokuapp.com//wishlist/${userId}`)
+           .get(`https://leomonay-tequiero.herokuapp.com/wishlist/${userId}`)
            .then(res=>{
                dispatch(addWishes(res.data[0]))
             })
@@ -87,7 +87,7 @@ export const removeFromWishlist = (itemId, userId)=>{
            userId: userId
        
    }
-   const rawResponse = await fetch('https://leomonay-tequiero.herokuapp.com//wishlist/deleteWish', {
+   const rawResponse = await fetch('https://leomonay-tequiero.herokuapp.com/wishlist/deleteWish', {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
