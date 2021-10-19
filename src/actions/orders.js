@@ -1,0 +1,110 @@
+import { types } from "../types/types";
+import {
+  finishLoader,
+  finishLoading,
+  startLoader,
+  startLoading,
+} from "./loading";
+
+export const startLoadingOrders = (status) => {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await fetch(
+        `https://leomonay-tequiero.herokuapp.com//orders?status=${status}`
+      );
+      const jsonData = await response.json();
+      // console.log('products(11) jsondata: ', jsonData)
+      dispatch(setOrders(jsonData));
+      dispatch(finishLoading());
+    } catch (error) {
+      // console.log(error);
+      dispatch(finishLoading());
+    }
+  };
+};
+
+export const setOrders = (orders) => {
+  return {
+    type: types.getOrders,
+    payload: orders,
+  };
+};
+
+export const startLoadingOrderById = (id) => {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await fetch(`https://leomonay-tequiero.herokuapp.com//orders/order/${id}`);
+      const jsonData = await response.json();
+      // console.log('products(11) jsondata: ', jsonData)
+      dispatch(setOrderById(jsonData));
+      dispatch(finishLoading());
+    } catch (error) {
+      console.log(error);
+      dispatch(finishLoading());
+    }
+  };
+};
+
+export const setOrderById = (order) => {
+  return {
+    type: types.getOrderById,
+    payload: order,
+  };
+};
+
+export const deleteOrderById = (id) => {
+  return async (dispatch) => {
+    dispatch(startLoader());
+    try {
+      // await fetch(`https://leomonay-tequiero.herokuapp.com//orders/order/${id}`);
+      dispatch(finishLoader());
+    } catch (error) {
+      console.log(error);
+      dispatch(finishLoader());
+    }
+  };
+};
+
+export const updateOrderById = (id, body) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        `https://leomonay-tequiero.herokuapp.com//orders/update/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+    } catch (error) {
+      alert("Producto no actualizado");
+      console.log(error.message);
+    }
+  };
+};
+
+// Traigo el historial de ordenes de un usuario
+export const startLoadingOrdersByUser = (id) => {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await fetch(
+        `https://leomonay-tequiero.herokuapp.com//orders/getUserOrders/${id}`
+      );
+      const jsonData = await response.json();
+      dispatch(setUserOrders(jsonData));
+      dispatch(finishLoading());
+    } catch (error) {
+      console.log(error);
+      dispatch(finishLoading());
+    }
+  };
+};
+export const setUserOrders = (orders) => {
+  return {
+    type: types.getOrdersByUser,
+    payload: orders,
+  };
+};

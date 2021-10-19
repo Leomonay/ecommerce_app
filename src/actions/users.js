@@ -1,0 +1,152 @@
+import { types } from "../types/types";
+import { finishLoading, startLoading } from "./loading";
+
+export function showUsers() {
+    return async function (dispatch) {
+        dispatch(startLoading());
+        try {
+            const response = await fetch("https://leomonay-tequiero.herokuapp.com//users/allUser");
+            const jsonData = await response.json();
+            dispatch(setUsers(jsonData));
+            dispatch(finishLoading());
+        } catch (error) {
+            console.log(error);
+            dispatch(finishLoading());
+        }
+    };
+}
+
+export const setUser = (name, id, admin) => {
+    console.log(name, id, admin);
+    return {
+        type: types.setUser,
+        payload: {
+            id: id,
+            name: name,
+            admin: admin,
+        },
+    };
+};
+
+export const setOption = (option) => {
+    return {
+        type: types.setOption,
+        payload: option,
+    };
+};
+export const logOutUser = () => {
+    localStorage.clear();
+};
+
+export const setUserReload = (user) => {
+    return {
+        type: types.ReloadUser,
+        payload: user,
+    };
+};
+
+export const setUsers = (users) => {
+    return {
+        type: types.loadUsers,
+        payload: users,
+    };
+};
+
+export const logout = () => {
+    return async function (dispatch) {
+        try {
+            const response = await fetch("https://leomonay-tequiero.herokuapp.com//auth/logout");
+            console.log("Estoy en el logout");
+            dispatch(logOutUser());
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+export const deleteUserById = (id) => {
+    return async () => {
+        try {
+            const resp = await fetch(
+                `https://leomonay-tequiero.herokuapp.com//users/deleteUser?id=${id}`,
+                {
+                    method: "DELETE",
+                }
+            );
+        } catch (error) {
+            console.log("fail delete user: ", error);
+        }
+    };
+};
+
+export const adminToUser = (body) => {
+    return async (dispatch) => {
+        try {
+            const response = await fetch(
+                `https://leomonay-tequiero.herokuapp.com//users/adminToUser`,
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body),
+                }
+            );
+        } catch (error) {
+            alert("Rol de usuario no actualizado");
+            console.log(error.message);
+        }
+    };
+};
+export const userPromote = (body) => {
+    return async (dispatch) => {
+        try {
+            const response = await fetch(
+                `https://leomonay-tequiero.herokuapp.com//users/userPromote`,
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body),
+                }
+            );
+        } catch (error) {
+            alert("Rol de usuario no actualizado");
+            console.log(error.message);
+        }
+    };
+};
+
+export const getCountries = () => {
+    return async (dispatch) => {
+        try {
+            const response = await fetch(
+                "https://restcountries.eu/rest/v2/all"
+            );
+            const jsonData = await response.json();
+            console.log(jsonData);
+            return dispatch({
+                type: types.getAllCountries,
+                payload: jsonData,
+            });
+            //setOption(e.target.value)
+        } catch (err) {
+            console.log(err);
+        }
+    };
+};
+
+export const forceResetPassword = (body) => {
+    return async () => {
+        try {
+            const response = await fetch(
+                `https://leomonay-tequiero.herokuapp.com//users/modifyUser`,
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body),
+                }
+            );
+        } catch (error) {
+            alert("Reset password");
+            console.log(error.message);
+        }
+    };
+};

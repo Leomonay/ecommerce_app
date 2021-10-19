@@ -1,0 +1,202 @@
+import { types } from "../types/types";
+import {
+  finishLoader,
+  finishLoading,
+  startLoader,
+  startLoading,
+} from "./loading";
+import { imgUpload } from "../helpers/imgUpload";
+import { showReviewModal } from "./showReviewModal";
+const axios = require("axios");
+
+export const startLoadingProducts = () => {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await fetch(`https://leomonay-tequiero.herokuapp.com//products`);
+      const jsonData = await response.json();
+      // console.log('products(11) jsondata: ', jsonData)
+      dispatch(setProducts(jsonData));
+      dispatch(finishLoading());
+      // dispatch(showReviewModal(false))
+    } catch (error) {
+      console.log(error);
+      dispatch(finishLoading());
+    }
+  };
+};
+
+export const setProducts = (products) => {
+  return {
+    type: types.prodLoad,
+    payload: products,
+  };
+};
+
+export function get_detail(id) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const res = await fetch(`https://leomonay-tequiero.herokuapp.com//products/${id}`);
+      const jsonData = await res.json();
+
+      dispatch(setProduct(jsonData[0]));
+      dispatch(finishLoading());
+    } catch (err) {
+      console.log(err);
+      dispatch(finishLoading());
+    }
+  };
+}
+
+export const setProduct = (product) => {
+  return {
+    type: types.GET_DETAIL,
+    payload: product,
+  };
+};
+
+export function searchProduct(keyword) {
+  return async function (dispatch) {
+    return await fetch(
+      `https://leomonay-tequiero.herokuapp.com//products/search/?keyword=${keyword}`,
+      { credentials: "include" }
+    )
+      .then((response) => response.json())
+      .then((product) => {
+        dispatch({
+          type: types.SEARCH,
+          payload: product,
+        });
+      });
+  };
+}
+
+export const cleanSearchProduct = () => {
+  return {
+    type: types.cleanSearch,
+  };
+};
+
+export function loadFilteredProducts(filterOptions) {
+
+    return function(dispatch) {
+
+        return (
+            axios
+            .get(`https://leomonay-tequiero.herokuapp.com//products/categories?&data=${JSON.stringify(filterOptions)}`)
+            .then((res) => {
+                // console.log("llega desde los filtros", res.data)
+                dispatch(setProducts(res.data));
+                dispatch(finishLoading());
+            })
+            .catch((err) => {
+                console.log(err);
+                dispatch(finishLoading());
+            })
+        );
+    };
+
+}
+
+export const deleteProductById = (id) => {
+  return async () => {
+    try {
+      const res = await fetch(
+        `https://leomonay-tequiero.herokuapp.com//products/deleteProduct/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const updateProduct = (data) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        "https://leomonay-tequiero.herokuapp.com//products/modifyProduct",
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
+      dispatch({ type: types.prodUpdate });
+      alert("Producto actualizado correctamente");
+      dispatch({ type: types.prodImgClear });
+    } catch (error) {
+      alert("Producto no actualizado");
+      console.log(error.message);
+    }
+  };
+};
+
+export const startUploadingImg = (file, indice) => {
+  return async (dispatch) => {
+    dispatch(startLoader());
+    try {
+      const imgUrl = await imgUpload(file);
+      await dispatch(updateProductState(imgUrl, indice));
+      dispatch(finishLoader());
+    } catch (error) {
+      console.log(error);
+      dispatch(finishLoader());
+    }
+  };
+};
+export const updateProductState = (imgUrl, indice) => {
+  return {
+    type: types.prodImgUpdate,
+    payload: imgUrl,
+    indice: indice,
+  };
+};
+
+export const setImgsToImgsState = (imgs) => {
+
+    let imgsState = []; { imgs && imgs.filter(img => imgsState.push(img.name)) };
+    return (dispatch) => {
+        dispatch({
+            type: types.prodImgCharge,
+            payload: imgsState
+        })
+    }
+}
+
+export const setUserFeaturedProductsActn = (data) => {
+    console.log('setUserFeaturedProductsActn:: LOAD_USER_FEATURED_PRODUCTS will be executed')
+
+    return {
+        type: types.LOAD_USER_FEATURED_PRODUCTS,
+        payload: data
+    }
+}
+
+export function loadUserFeaturedProducts(userId) {
+    return function(dispatch) {
+        // console.log('loadUserFeaturedProducts:: voy a axios.get...')
+        return (
+            axios.get(`https://leomonay-tequiero.herokuapp.com//orders/getUserCompleteOrdersRelatedProducts/${userId}`)
+            .then((res) => {
+                // console.log(`loadUserFeaturedProducts:: voy a setUserFeaturedProductsActn, data: ${res.data}`)
+                dispatch(setUserFeaturedProductsActn(res.data));
+            })
+            .catch((err) => {
+                console.log(`loadUserFeaturedProducts:: Error:  ${err}`)
+            })
+            .finally(() => console.log('loadUserFeaturedProducts:: listo!'))
+        );
+    };
+}
+
+export const clearUserFeaturedProductsActn = () => {
+
+    return {
+        type: types.CLEAR_USER_FEATURED_PRODUCTS,
+    }
+}
+
